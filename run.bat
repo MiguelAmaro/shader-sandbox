@@ -1,2 +1,2 @@
 set GLSLVIEWER=F:\Dev_Tools\glslViewer\Release\glslViewer.exe
-%GLSLVIEWER% src\first.frag
+%GLSLVIEWER% src\first.frag data\na.png
