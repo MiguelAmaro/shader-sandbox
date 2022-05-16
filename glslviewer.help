@@ -1,0 +1,86 @@
+GlslViewer 2.1.2 by Patricio Gonzalez Vivo ( http://patriciogonzalezvivo.com )
+
+This is a flexible console-base OpenGL Sandbox to display 2D/3D GLSL shaders without the need of an UI. You can definitely make your own IDE or UI that communicates back/forth with glslViewer thought the standard POSIX console In/Out or OSC.
+
+For more information:
+  - refer to repository wiki https://github.com/patriciogonzalezvivo/glslViewer/wiki
+  - joing the #glslViewer channel in https://shader.zone/
+
+Usage:
+          glslViewer.exe <frag_shader>.frag [<vert_shader>.vert <geometry>.obj|ply|stl|glb|gltf]
+
+Optional arguments:
+
+      <texture>.(png/tga/jpg/bmp/psd/gif/hdr/mov/mp4/rtsp/rtmp/etc)   # load and assign texture to uniform u_tex<N>
+      -<uniform_name> <texture>.(png/tga/jpg/bmp/psd/gif/hdr)         # load a textures with a custom name
+      --video <video_device_number>   # open video device allocated wit that particular id
+      --audio [<capture_device_id>]   # open audio capture device as sampler2D texture
+      -C <enviromental_map>.(png/tga/jpg/bmp/psd/gif/hdr)     # load a env. map as cubemap
+      -c <enviromental_map>.(png/tga/jpg/bmp/psd/gif/hdr)     # load a env. map as cubemap but hided
+      -sh <enviromental_map>.(png/tga/jpg/bmp/psd/gif/hdr)    # load a env. map as spherical harmonics array
+      -vFlip                      # all textures after will be flipped vertically
+      -x <pixels>                 # set the X position of the billboard on the screen
+      -y <pixels>                 # set the Y position of the billboard on the screen
+      -w <pixels>                 # set the width of the window
+      -h <pixels>                 # set the height of the billboard
+      -d  or --display <display>  # open specific display port. Ex: -d /dev/dri/card1
+      -f  or --fullscreen         # load the window in fullscreen
+      -l  or --life-coding        # live code mode, where the billboard is allways visible
+      -ss or --screensaver        # screensaver mode, any pressed key will exit
+      --headless                  # headless rendering
+      --nocursor                  # hide cursor
+      --fps <fps>                 # fix the max FPS
+      --fxaa                      # set FXAA as postprocess filter
+      --quilt <0-7>               # quilt render (HoloPlay)
+      --lenticular [visual.json]  # lenticular calubration file, Looking Glass Model (HoloPlay)
+      -I<include_folder>          # add an include folder to default for #include files
+      -D<define>                  # add system #defines directly from the console argument
+      -p <OSC_port>               # open OSC listening port
+      -e  or -E <command>         # execute command when start. Multiple -e commands can be stack
+      -v  or --version            # return glslViewer version
+      --verbose                   # turn verbose outputs on
+      --help                      # print help for one or all command
+
+
+NATIVE UNIFORMS
+uniform int u_frame;: frame number
+
+uniform float u_time;: shader playback time (in seconds)
+
+uniform float u_delta;: delta time between frames (in seconds)
+
+uniform vec4 u_date;: year, month, day and seconds
+
+uniform vec2 u_resolution;: viewport resolution (in pixels)
+
+uniform vec2 u_mouse;: mouse pixel coords
+
+uniform vec3 u_camera: Position of the camera
+
+uniform float u_cameraFarClip: far clipping
+
+uniform float u_cameraNearClip: near clipping
+
+uniform float u_cameraDistance: camera distance to target (0,0,0)
+
+uniform bool u_cameraChange: true when the camera change position
+
+uniform mat3 u_normalMatrix: Normal Matrix
+
+uniform mat4 u_modelMatrix: Model Matrix
+
+uniform mat4 u_viewMatrix: View Matrix
+
+uniform mat4 u_projectionMatrix: Projection Matrix
+
+uniform mat4 u_modelViewProjectionMatrix: Model + View + Projection Matrix
+
+uniform vec3 u_light: Position of the light
+
+uniform vec3 u_lightColor: Color of the light
+
+uniform mat4 u_lightMatrix: Light Matrix for reprojecting shadows
+
+uniform sampler2D u_tex[number]: default textures names
+
+uniform sampler2D u_buffer[number]: extra buffers forked with the define flag BUFFER_[number] on a subshaders.
