@@ -24,8 +24,7 @@ load_paths = {
 commands = {
   .run = 
   { 
-    .out = "*run*", .footer_panel = true, .save_dirty_files = false, .cursor_at_end = true,
-    .win = "run.bat",
+    .win = "start run.bat",
   },
 };
 fkey_command = {

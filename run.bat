@@ -1,12 +1,14 @@
+@echo off
 set GLSLVIEWER=F:\Dev_Tools\glslViewer\Release\glslViewer.exe
+set VIEWINFO=-w 600 -h 600 -x 0 -y 0
 
 set FRAGSHADER=^
-buffex.frag
-rem attractors.frag
+attractors.frag
+run buffex.frag
 rem pixelspririts.frag
 rem fractal.frag
 rem first.frag
 
 rem Look at glslviwer.help in project directory for command line options
-%GLSLVIEWER% src\%FRAGSHADER% -l
+%GLSLVIEWER% src\%FRAGSHADER% %VIEWINFO% -l
 rem data\na.png
