@@ -1,7 +1,8 @@
 @echo off
 
 set FRAGSHADER=^
-tuthappyjumping.frag
+raymarcherfromscratch.frag
+rem tuthappyjumping.frag
 rem mandelbrotset.frag
 rem attractors.frag
 rem buffex.frag

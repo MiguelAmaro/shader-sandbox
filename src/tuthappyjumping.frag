@@ -96,7 +96,7 @@ vec2 SdGuy(in vec3 pos)
 vec2 map(in vec3 pos)
 {
   //equations of a sphere????
-  vec2 d1 = SdGuy(pos);
+  vec2 d1 = SdGuy(pos); //[7]
   float d2 = pos.y - (-0.25);
   return (d2<d1.x)?vec2(d2, 1.0):d1; //[11]
 }
@@ -233,6 +233,7 @@ void main(void) {
 /*Notes:
 *        Gl coored system is positive x to the right, positive y up, positive z toward you.
 *        TLight: strongest light in the sceen
+*         [7] Detecting a ray hit on a surface using distance fields. Distace of the point from the surface.
 *         [8][29.41] Calc alignment of sundirection and surface normal use as influence on final color. Same is done for sky light 
 *                    and bounce lighting of the floor.
 *         [9][31:10] Sun yellow and sky blue are complemntary colors.
