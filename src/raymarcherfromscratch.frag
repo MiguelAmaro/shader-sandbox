@@ -21,7 +21,8 @@ float CastRay(in vec3 Ray)
 {
   float Wave0 = 0.5+0.5*sin(u_time*0.8);
   float Wave1 = 0.5+0.5*sin(u_time)*0.2;
-  float d = Sphere(Ray,1.0+0.25-smoothstep(0.02,0.8,0.5+0.5*-sin(0.5+u_time)));
+  float Radius = 1.0+0.25-smoothstep(0.02,0.8,0.5+0.5*-sin(0.5+u_time));
+  float d = Sphere(Ray, 0.25);
   return d;
 }
 
@@ -80,14 +81,17 @@ float fbm ( in vec2 _uv) {
 void main(void) {
   vec2 uv = (gl_FragCoord.xy-0.5*u_resolution.xy)/u_resolution.y;
   float FocalLength = 1.4;
-  //vec3 TiltedAxis = vec3();
+  vec3 TiltedAxis = vec3(0.0,0.95,0.0);
   vec3 RayOrigin = vec3(0.0,0.0,-FocalLength); 
-  vec3 RayDir = vec3(uv, 0.0)-RayOrigin;
   vec3 TLightPos = vec3(10.0*cos(u_time), 5.0, 10.0*sin(u_time));
   
-  vec3 CamY = normalize(vec3(0.0,0.95,0.0)-RayOrigin);
+  vec3 CamY = normalize(TiltedAxis-RayOrigin);
   vec3 CamX = normalize(cross(CamY, vec3(0.0,1.0,0.0)));
   vec3 CamZ = normalize(cross(CamX, CamY));
+  
+  vec3 RayDir    = vec3(uv, 0.0)-RayOrigin;
+  RayDir = normalize(RayDir.x*CamX + RayDir.y*CamY + RayDir.z*CamZ);
+  
   
   //~ fbm uvuff
   vec3 color = vec3(0.0);
@@ -133,38 +137,9 @@ void main(void) {
     vec3 Mate = dot(Normal,vec3(0.0,0.0,-4.0))-Normal-(8.0+10.0*Bias(sin(u_time)))*f;
     
     //vec3 FinalColor = clamp(0.7*dot(Normal,TLightPos)-Normal-11.0*f, 0.2, 0.9999);
-    vec3 Diffuse = clamp(0.5+0.5*dot(Normal,TLightPos),0.0,1.0);
+    vec3 Diffuse = clamp(Bias(dot(Normal,TLightPos)),0.0,1.0);
     vec3 SkyDiffuse = clamp(0.5+0.5*dot(Normal,vec3(0.0,1.0,0.0)),0.0,1.0);
     FinalColor = (Mate*Diffuse);
   }
   gl_FragColor= vec4(FinalColor,1.0);
 }
-/*
-
-{
-    vec2 uv = (fragCoord-0.5*iResolution.xy)/iResolution.y;
-    float FocalLength = 1.;
-    vec3 RayOrigin = vec3(0.0,0.0,-FocalLength); 
-    vec3 RayDir = vec3(uv, 0.0)-RayOrigin;
-    vec3 TLightPos = vec3(10.0*cos(iTime*0.5), 5.0, 10.0*sin(iTime*0.5));
-    
-    
-    //Bounce
-    vec3 Ray00 = vec3(0.0);
-    float t = 0.0;
-    for(int i=0;i<100;i++)
-    {
-        RayOrigin += t*RayDir;
-        Ray00 += RayOrigin;
-        t = CastRay(RayOrigin);
-        
-    }
-    
-    vec3 Mate = vec3(0.2,0.01,0.04);
-    vec3 Normal = CalcNormal(vec3(RayOrigin));
-    vec3 FinalColor = Mate*vec3(dot(TLightPos, RayOrigin));
-
-    fragColor = vec4(FinalColor,1.0);
-}
-    }
-*/
