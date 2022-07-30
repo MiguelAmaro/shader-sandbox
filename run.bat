@@ -1,11 +1,13 @@
 @echo off
 
 set FRAGSHADER=^
-cavediving.frag
+volumetriclightingc.frag
+rem noiseexperiments.frag
+rem deconunknownpleasures.frag
+rem cavediving.frag
 rem tutfluidsim.frag
 rem deconiqvoronoi.frag
 rem tutgears.frag
-rem deconunknownpleasures.frag
 rem unknownpleasures3d.frag
 rem spheretracing.frag
 rem deconfractalpat.frag
@@ -26,7 +28,7 @@ rem first.frag
 rem Release
 
 set GLSLVIEWER=F:\Dev_Tools\glslViewer\Release\glslViewer.exe
-set VIEWCONFIG=-w 800 -h 1000 -x 0 -y 0 -l --fps 60
+set VIEWCONFIG=-w 800 -h 1000 -x 0 -y 0 -l --fps 60 -c
 
 rem Look at glslviwer.help in project directory for command line options
 %GLSLVIEWER% src\%FRAGSHADER% %VIEWCONFIG%
